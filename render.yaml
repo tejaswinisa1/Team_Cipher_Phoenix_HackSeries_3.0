@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: datadao-india-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ALGORAND_TOKEN
+        sync: false
+      - key: ALGORAND_SERVER
+        value: https://testnet-api.algonode.cloud
+      - key: ALGORAND_PORT
+        value: ""
+      - key: ALGORAND_APP_ID
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
