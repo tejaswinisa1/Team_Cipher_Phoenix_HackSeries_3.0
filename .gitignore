@@ -1,6 +1,8 @@
 # ── Secrets — NEVER commit these ─────────────────────────────────────────────
 backend/.env
 frontend/.env.local
+frontend/.env.production
+render.env
 .env
 .env.local
 .env.*.local
