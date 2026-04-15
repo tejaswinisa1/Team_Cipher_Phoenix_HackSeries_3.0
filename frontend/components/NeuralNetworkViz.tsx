@@ -9,8 +9,8 @@ export function NeuralNetworkViz({ active = false }: { active?: boolean }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const context = canvas.getContext('2d');
+    if (!context) return;
 
     canvas.width = 400;
     canvas.height = 300;
@@ -44,8 +44,13 @@ export function NeuralNetworkViz({ active = false }: { active?: boolean }) {
 
     let animationFrame: number;
 
+    // Capture as local constants so TypeScript knows they are non-null
+    // inside the animate closure (type narrowing doesn't cross function boundaries)
+    const ctx = context;
+    const cvs = canvas;
+
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
 
       // Draw connections
       nodes.forEach((node, i) => {

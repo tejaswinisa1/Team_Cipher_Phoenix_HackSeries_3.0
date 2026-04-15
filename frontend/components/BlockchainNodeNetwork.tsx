@@ -9,8 +9,8 @@ export function BlockchainNodeNetwork({ confirming = false }: { confirming?: boo
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const context = canvas.getContext('2d');
+    if (!context) return;
 
     canvas.width = 500;
     canvas.height = 200;
@@ -37,8 +37,13 @@ export function BlockchainNodeNetwork({ confirming = false }: { confirming?: boo
     let time = 0;
     let animationFrame: number;
 
+    // Capture as local constants so TypeScript knows they are non-null
+    // inside the animate closure (type narrowing doesn't cross function boundaries)
+    const ctx = context;
+    const cvs = canvas;
+
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
       time += 0.02;
 
       // Draw connections
