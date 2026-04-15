@@ -1,0 +1,239 @@
+PRODUCT REQUIREMENTS DOCUMENT (PRD)
+Project: DataDAO India – Agentic Data Marketplace (MVP-Focused)
+1. Product Overview
+
+DataDAO India is an Agentic AI-powered platform that enables users to control and monetize their personal data through automated consent management.
+
+The system uses AI agents for decision-making and Algorand blockchain for real-time, tamper-proof compliance logging and payments, aligned with the Digital Personal Data Protection Act, 2023 (India).
+
+2. Problem Statement
+Users lack control and visibility over how their data is used
+Consent systems are non-transparent and non-auditable
+Companies lack real-time compliance verification mechanisms
+3. REFINED MVP SCOPE (CRITICAL CHANGE)
+Focus (What we WILL build)
+Single user ↔ single company interaction
+AI-based consent decision (rule + LLM hybrid)
+One Algorand smart contract for:
+consent logging
+payment execution
+Removed (for feasibility)
+multi-user marketplace
+complex pricing engine
+real data exchange
+regulator dashboard (optional mock)
+4. Core Innovation (What makes this strong)
+
+This system introduces:
+
+Agentic Consent Execution (AI decides)
+On-chain Compliance Proof (Algorand logs)
+Real-time Transparency (visible transactions)
+5. Algorand-Specific Implementation (MANDATORY DETAIL)
+5.1 Why Algorand (explicit justification)
+sub-5 second finality → real-time compliance
+low transaction fees → micro-payments feasible
+AVM (Algorand Virtual Machine) → smart contract execution
+immutable ledger → audit-ready
+5.2 Smart Contract Design (MVP)
+
+Smart Contract: ConsentContract
+
+Stores:
+
+user_wallet_address
+company_wallet_address
+data_type
+consent_status (approved / rejected)
+price
+timestamp
+usage_conditions_hash
+5.3 Smart Contract Logic
+On Request Approval:
+
+1. Validate transaction  
+2. Lock payment from company  
+3. Record consent metadata  
+4. Emit transaction ID  
+5.4 Transaction Flow (REAL-TIME COMPLIANCE)
+Company submits request
+↓
+AI Agent evaluates (2–3 sec)
+↓
+If approved:
+    → Smart contract triggered
+    → Payment transferred
+    → Consent recorded on-chain
+↓
+Transaction hash returned
+↓
+Displayed in UI instantly
+5.5 Transparency Mechanism
+
+Frontend shows:
+
+transaction ID
+timestamp
+consent decision
+payment status
+
+This creates live compliance visibility, not post-facto logging.
+
+6. System Architecture (Refined)
+
+Frontend (Next.js)
+↓
+Backend API (Node.js)
+↓
+AI Agent Engine (LLM + Rules)
+↓
+Algorand SDK
+↓
+Algorand Smart Contract (Testnet)
+
+7. Tech Stack (Finalized)
+
+Frontend:
+
+Next.js
+Tailwind CSS
+ShadCN
+
+Backend:
+
+Node.js (Express)
+
+AI:
+
+OpenAI / Gemini API
+
+Blockchain:
+
+Algorand Testnet
+AlgoSDK
+PyTeal (for contract logic)
+8. Feature Flow (Tight MVP)
+User Flow
+
+User logs in
+→ sets preference (basic toggle)
+→ waits for request
+
+Company Flow
+
+Submit request
+→ includes:
+
+data_type
+purpose
+offered price
+Agent Flow
+
+Receives request
+→ evaluates using:
+
+rules
+LLM reasoning
+→ outputs:
+approve / reject
+modified price
+Blockchain Flow (CORE DEMO)
+Approve
+↓
+AlgoSDK call
+↓
+Smart contract execution
+↓
+Payment + consent stored
+↓
+Transaction hash generated
+9. AI Agent Logic (Practical Implementation)
+
+Hybrid approach:
+
+Rule Layer:
+
+reject if price too low
+reject sensitive data
+
+LLM Layer:
+
+evaluate purpose
+adjust pricing
+
+Final Output:
+
+decision
+price
+justification
+10. API Design (Minimal)
+
+POST /request-data
+{
+"data_type": "location",
+"price": 20,
+"purpose": "analytics"
+}
+
+POST /agent-decision
+{
+"decision": "approve",
+"final_price": 30
+}
+
+POST /execute-contract
+{
+"user_wallet": "...",
+"company_wallet": "...",
+"amount": 30
+}
+
+11. UI Pages (MVP Only)
+Landing Page
+Dashboard
+Request Approval Screen
+Transaction Result Screen
+12. Demo Flow (Judge-Focused)
+Company submits request
+AI agent evaluates live
+Decision displayed with reasoning
+“Approve” triggers blockchain
+Payment executes (testnet)
+Transaction hash shown
+13. Deliverability Plan (1 Month)
+
+Week 1:
+
+UI + basic backend
+
+Week 2:
+
+AI agent integration
+
+Week 3:
+
+Algorand smart contract + SDK
+
+Week 4:
+
+full demo + polish
+14. Risks and Mitigation
+
+Blockchain complexity
+→ use Algorand testnet + simple contract
+
+AI inconsistency
+→ fallback rules
+
+Time constraint
+→ strict MVP scope
+
+15. Key Differentiator (Final Positioning)
+
+This is NOT:
+
+a consent dashboard
+
+This IS:
+
+a real-time, agent-driven compliance execution system with on-chain proof

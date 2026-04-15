@@ -1,0 +1,79 @@
+#pragma version 8
+txn ApplicationID
+int 0
+==
+bnz main_l12
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l11
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l10
+txn OnCompletion
+int OptIn
+==
+bnz main_l9
+txn OnCompletion
+int CloseOut
+==
+bnz main_l8
+txn OnCompletion
+int NoOp
+==
+txna ApplicationArgs 0
+byte "recordConsent"
+==
+&&
+bnz main_l7
+err
+main_l7:
+txn NumAppArgs
+int 6
+==
+assert
+txn Sender
+global CreatorAddress
+==
+assert
+txna ApplicationArgs 2
+byte "approved"
+==
+txna ApplicationArgs 2
+byte "rejected"
+==
+||
+assert
+byte "request_id"
+txna ApplicationArgs 1
+app_global_put
+byte "consent_status"
+txna ApplicationArgs 2
+app_global_put
+byte "price"
+txna ApplicationArgs 3
+app_global_put
+byte "usage_conditions_hash"
+txna ApplicationArgs 4
+app_global_put
+byte "timestamp"
+txna ApplicationArgs 5
+app_global_put
+int 1
+return
+main_l8:
+int 0
+return
+main_l9:
+int 0
+return
+main_l10:
+int 0
+return
+main_l11:
+int 0
+return
+main_l12:
+int 1
+return
